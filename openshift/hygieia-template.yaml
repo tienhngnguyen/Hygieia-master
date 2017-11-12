@@ -60,8 +60,6 @@ objects:
       spec:
         containers:
         - env:
-          - name: jasypt.encryptor.password
-            value: hygieiasecret
           - name: SPRING_DATA_MONGODB_DATABASE
             value: ${SPRING_DATA_MONGODB_DATABASE}
           - name: SPRING_DATA_MONGODB_HOST
