@@ -177,7 +177,7 @@ objects:
             value: ${SPRING_DATA_MONGODB_DATABASE}
           - name: MONGODB_ADMIN_PASSWORD
             value: ${SPRING_DATA_MONGODB_ADMIN_PASSWORD}
-          image: mongodb
+          image: openshift/mongodb
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 10
