@@ -67,7 +67,7 @@ objects:
           - name: SPRING_DATA_MONGODB_HOST
             value: hygieia-mongodb
           - name: SPRING_DATA_MONGODB_PORT
-            value: 27017
+            value: "27017"
           - name: SPRING_DATA_MONGODB_USERNAME
             value: ${SPRING_DATA_MONGODB_USERNAME}
           - name: SPRING_DATA_MONGODB_PASSWORD
