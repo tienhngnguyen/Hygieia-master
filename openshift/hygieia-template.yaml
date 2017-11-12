@@ -73,7 +73,7 @@ objects:
           - name: SPRING_DATA_MONGODB_PASSWORD
             value: ${SPRING_DATA_MONGODB_PASSWORD}
           - name: AUTH_EXPIRATION_TIME
-            value: 7200000
+            value: "7200000"
           - name: AUTH_SECRET
             value: hygieiasecret
           image: ${APPLICATION_NAME}-api
