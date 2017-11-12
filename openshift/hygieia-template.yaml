@@ -159,7 +159,7 @@ objects:
       kind: Service
       name: hygieiaapi-http
       weight: 100
-  # MongoDB  
+# MongoDB  
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -263,7 +263,6 @@ objects:
       deploymentconfig: ${APPLICATION_NAME}-mongodb
     sessionAffinity: None
     type: ClusterIP
-
 #Hygieia UI
 - apiVersion: v1
   kind: ImageStream
@@ -321,7 +320,7 @@ objects:
       spec:
         containers:
         - env:
-          - name: hygieiaapi-http_SERVICE
+          - name: hygieiaapi_SERVICE
             value: hygieiaapi-http
           - name: HOSTNAME_HTTP
             value: web-ui:80
