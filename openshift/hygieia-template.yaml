@@ -9,7 +9,7 @@ objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: hygieiaapi
+    name: ${APPLICATION_NAME}-api
     labels:
       application: ${APPLICATION_NAME}
   spec:
@@ -18,14 +18,14 @@ objects:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: hygieiaapi
+    name: ${APPLICATION_NAME}-api
     labels:
       application: ${APPLICATION_NAME}
   spec:
     output:
       to:
         kind: ImageStreamTag
-        name: hygieiaapi:latest
+        name: ${APPLICATION_NAME}-api:latest
     source:
       contextDir: api
       git:
@@ -41,22 +41,22 @@ objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    name: hygieiaapi
+    name: ${APPLICATION_NAME}-api
     labels:
-      application: ${APPLICATION_NAME}
+      app: api
   spec:
-    replicas: 1
+    replicas: 0
     selector:
-      deploymentconfig: hygieiaapi
+      deploymentconfig: ${APPLICATION_NAME}-api
     strategy:
       resources: {}
       type: Recreate
     template:
       metadata:
         labels:
-          application: ${APPLICATION_NAME}
-          deploymentconfig: hygieiaapi
-        name: hygieiaapi
+          app: api
+          deploymentconfig: ${APPLICATION_NAME}-api
+        name: ${APPLICATION_NAME}-api
       spec:
         containers:
         - env:
@@ -76,19 +76,9 @@ objects:
             value: 7200000
           - name: AUTH_SECRET
             value: hygieiasecret
-          image: hygieiaapi     
+          image: ${APPLICATION_NAME}-api
           imagePullPolicy: Always
-          livenessProbe:
-            failureThreshold: 5
-            httpGet:
-              path: /health
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 45
-            periodSeconds: 5
-            successThreshold: 1
-            timeoutSeconds: 1
-          name: hygieiaapi
+          name: ${APPLICATION_NAME}-api
           ports:
           - containerPort: 8778
             name: jolokia
@@ -96,39 +86,44 @@ objects:
           - containerPort: 8080
             name: http
             protocol: TCP
-          - containerPort: 8443
-            name: https
-            protocol: TCP
-          readinessProbe:
-            failureThreshold: 10
+          livenessProbe:
+            failureThreshold: 2
             httpGet:
-              path: /health
+              path: "/health/liveness"
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 45
-            periodSeconds: 5
-            successThreshold: 1
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreashold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: "/health/readiness"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreashold: 1
             timeoutSeconds: 1
           resources:
             limits:
-              memory: 1Gi
-              cpu: 1
+              memory: 500Mi
             requests:
-              memory: 512Mi
-              cpu: 200m
-          terminationMessagePath: /dev/termination-log
+              memory: 200Mi
+        terminationMessagePath: /dev/termination-log
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
-        terminationGracePeriodSeconds: 75  
+        terminationGracePeriodSeconds: 75
     triggers:
     - imageChangeParams:
         automatic: true
         containerNames:
-        - hygieiaapi
+        - ${APPLICATION_NAME}-api
         from:
           kind: ImageStreamTag
-          name: hygieiaapi:latest
+          name: ${APPLICATION_NAME}-api:latest
       type: ImageChange
     - type: ConfigChange
   # Hygieia API Service
@@ -138,26 +133,26 @@ objects:
     annotations:
       service.alpha.openshift.io/dependencies: '[{"name":"hygieia-mongodb","namespace":"","kind":"Service"}]'
     labels:
-      app: hygieiaapi
+      app: ${APPLICATION_NAME}-api
       application: ${APPLICATION_NAME}
-    name: hygieiaapi-http
+    name: ${APPLICATION_NAME}-api-http
   spec:
     ports:
     - port: 8080
       protocol: TCP
       targetPort: 8080
     selector:
-      deploymentconfig: hygieiaapi
+      deploymentconfig: ${APPLICATION_NAME}-api
 - apiVersion: v1
   kind: Route
   metadata:
     labels:
       application: ${APPLICATION_NAME}
-    name: hygieiaapi-route
+    name: ${APPLICATION_NAME}-api-route
   spec:
     to:
       kind: Service
-      name: hygieiaapi-http
+      name: ${APPLICATION_NAME}-api-http
       weight: 100
 # MongoDB  
 - apiVersion: v1
@@ -321,7 +316,7 @@ objects:
         containers:
         - env:
           - name: hygieiaapi_SERVICE
-            value: hygieiaapi-http
+            value: hygieia-api-http
           - name: HOSTNAME_HTTP
             value: web-ui:80
           image: ${APPLICATION_NAME}-ui
