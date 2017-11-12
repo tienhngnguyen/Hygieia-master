@@ -60,22 +60,14 @@ objects:
       spec:
         containers:
         - env:
-          - name: jasypt.encryptor.password
-            value: hygieiasecret
           - name: SPRING_DATA_MONGODB_DATABASE
             value: ${SPRING_DATA_MONGODB_DATABASE}
           - name: SPRING_DATA_MONGODB_HOST
             value: hygieia-mongodb
-          - name: SPRING_DATA_MONGODB_PORT
-            value: "27017"
           - name: SPRING_DATA_MONGODB_USERNAME
             value: ${SPRING_DATA_MONGODB_USERNAME}
           - name: SPRING_DATA_MONGODB_PASSWORD
             value: ${SPRING_DATA_MONGODB_PASSWORD}
-          - name: AUTH_EXPIRATION_TIME
-            value: "7200000"
-          - name: AUTH_SECRET
-            value: hygieiasecret
           image: ${APPLICATION_NAME}-api
           imagePullPolicy: Always
           name: ${APPLICATION_NAME}-api

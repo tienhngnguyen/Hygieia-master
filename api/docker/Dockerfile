@@ -8,7 +8,9 @@ ENV SPRING_DATA_MONGODB_HOST=hygieia-mongodb
 ENV SPRING_DATA_MONGODB_PORT=27017
 ENV SPRING_DATA_MONGODB_USERNAME=dashboarduser
 ENV SPRING_DATA_MONGODB_PASSWORD=dbpassword
-
+ENV AUTH_EXPIRATION_TIME=7200000
+ENV jasypt.encryptor.password=hygieiasecret
+ENV AUTH_SECRET=hygieiasecret
 
 RUN \
   mkdir /hygieia
