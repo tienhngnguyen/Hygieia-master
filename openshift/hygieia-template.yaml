@@ -43,7 +43,7 @@ objects:
   metadata:
     name: ${APPLICATION_NAME}-api
     labels:
-      app: api
+      app: ${APPLICATION_NAME}-api
   spec:
     replicas: 0
     selector:
@@ -54,7 +54,7 @@ objects:
     template:
       metadata:
         labels:
-          app: api
+          app: ${APPLICATION_NAME}-api
           deploymentconfig: ${APPLICATION_NAME}-api
         name: ${APPLICATION_NAME}-api
       spec:
@@ -151,7 +151,7 @@ objects:
   kind: DeploymentConfig
   metadata:
     labels:
-      app: ${APPLICATION_NAME}
+      app: ${APPLICATION_NAME}-mongodb
       comp-type: database
     name: ${APPLICATION_NAME}-mongodb
   spec:
@@ -230,7 +230,7 @@ objects:
         from:
           kind: ImageStreamTag
           name: mongodb:3.2
-          namespace: ${IMAGE_STREAM_NAMESPACE}
+          namespace: openshift
       type: ImageChange
     - type: ConfigChange
   # MongoDB Service
@@ -256,7 +256,7 @@ objects:
   metadata:
     name: ${APPLICATION_NAME}-ui
     labels:
-      app: web-ui
+      app: ${APPLICATION_NAME}-ui
   spec:
     tags:
     - name: latest
@@ -265,7 +265,7 @@ objects:
   metadata:
     name: ${APPLICATION_NAME}-ui
     labels:
-      app: web-ui
+      app: ${APPLICATION_NAME}-ui
   spec:
     output:
       to:
@@ -290,11 +290,11 @@ objects:
   metadata:
     name: ${APPLICATION_NAME}-ui
     labels:
-      app: web-ui
+      app: ${APPLICATION_NAME}-ui
   spec:
     replicas: 1
     selector:
-      app: web-ui
+      app: ${APPLICATION_NAME}-ui
       deploymentconfig: ${APPLICATION_NAME}-ui
     strategy:
       resources: {}
@@ -302,7 +302,7 @@ objects:
     template:
       metadata:
         labels:
-          app: web-ui
+          app: ${APPLICATION_NAME}-ui
           deploymentconfig: ${APPLICATION_NAME}-ui
       spec:
         containers:
@@ -310,7 +310,7 @@ objects:
           - name: hygieiaapi_SERVICE
             value: hygieia-api-http
           - name: HOSTNAME_HTTP
-            value: web-ui:80
+            value: ${APPLICATION_NAME}-ui:80
           image: ${APPLICATION_NAME}-ui
           imagePullPolicy: Always
           name: ${APPLICATION_NAME}-ui
@@ -358,7 +358,7 @@ objects:
   kind: Service
   metadata:
     labels:
-      app: web-ui
+      app: ${APPLICATION_NAME}-ui
     name: ${APPLICATION_NAME}-ui
   spec:
     ports:
