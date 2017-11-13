@@ -167,7 +167,7 @@ objects:
               - -i
               - -c
               - env && while ! mongo ${RATING_MONGODB_SERVICE_HOST}:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval="$MONGODB_INIT" > /dev/null 2>&1; do echo "waiting for mongo ..."; sleep 5; done
-            containerName: rating-mongodb
+            containerName: ${APPLICATION_NAME}-mongodb
             env:
             - name: MONGODB_INIT
               value: 'use dashboarddb;
