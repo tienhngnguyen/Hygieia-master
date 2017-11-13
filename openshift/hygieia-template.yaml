@@ -35,7 +35,7 @@ objects:
     strategy:
       type: Docker
       dockerStrategy:
-        dockerfilePath: Docker/Dockerfile
+        dockerfilePath: docker/Dockerfile
     triggers:
     - type: ConfigChange
 - apiVersion: v1
@@ -272,7 +272,7 @@ objects:
         kind: ImageStreamTag
         name: ${APPLICATION_NAME}-ui:latest
     source:
-      contextDir: ui
+      contextDir: UI
       git:
         ref: ${GIT_REF}
         uri: ${GIT_URI}
@@ -280,7 +280,7 @@ objects:
     strategy:
       type: Docker
       dockerStrategy:
-        dockerfilePath: Docker/Dockerfile
+        dockerfilePath: docker/Dockerfile
     triggers:
     - imageChange: {}
       type: ImageChange
