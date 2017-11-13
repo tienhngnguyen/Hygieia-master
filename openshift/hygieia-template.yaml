@@ -166,7 +166,7 @@ objects:
               - /bin/sh
               - -i
               - -c
-              - env && while ! mongo hygieia-mongodb:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval="$MONGODB_INIT" > /dev/null 2>&1; do echo "waiting for mongo ..."; sleep 5; done
+              - env && while ! mongo ${HYGIEIA_MONGODB_SERVICE_HOST}:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval="$MONGODB_INIT" > /dev/null 2>&1; do echo "waiting for mongo ..."; sleep 5; done
             containerName: ${APPLICATION_NAME}-mongodb
             env:
             - name: MONGODB_INIT

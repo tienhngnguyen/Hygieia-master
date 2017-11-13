@@ -16,7 +16,7 @@ RUN \
   mkdir /hygieia
 
 #COPY hygieia/ /hygieia
-COPY *.jar /hygieia
+COPY *.jar /hygieia/
 COPY properties-builder.sh /hygieia/
 
 WORKDIR /hygieia
