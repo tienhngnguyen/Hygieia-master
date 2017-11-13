@@ -170,15 +170,8 @@ objects:
             containerName: rating-mongodb
             env:
             - name: MONGODB_INIT
-              value: use dashboarddb;
-              db.createUser(
-                  {
-                    user: "dashboarduser",
-                    pwd: "dbpassword",
-                    roles: [
-                       {role: "readWrite", db: "dashboarddb"}
-                            ]
-                    });
+              value: 'use dashboarddb;
+              db.createUser({user: "dashboarduser", pwd: "dbpassword", roles: [{role: "readWrite", db: "dashboarddb"}]});'
           failurePolicy: ignore
         timeoutSeconds: 600
       resources: {}
