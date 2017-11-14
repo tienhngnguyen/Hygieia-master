@@ -16,6 +16,7 @@ RUN \
   mkdir /hygieia
 RUN ls
 RUN cd hygieia
+RUN ls
 
 #COPY hygieia/ /hygieia
 COPY /hygieia/*.jar /hygieia/
