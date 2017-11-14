@@ -282,6 +282,14 @@ objects:
       git:
         ref: ${GIT_REF}
         uri: ${GIT_URI}
+      #TEMP
+      paths:
+      - destinationDir: /etc/nginx/conf.d/default.conf.templ
+        sourcePath: /docker/default.conf
+      - destinationDir: /usr/bin/conf-builder.sh
+        sourcePath: /docker/conf-builder.sh    
+      - destinationDir: /usr/share/nginx/html
+        sourcePath: /docker/UI-2.0.5-SNAPSHOT-src.tar.gz
       type: Git
     strategy:
       type: Docker
