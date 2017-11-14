@@ -14,6 +14,7 @@ ENV AUTH_SECRET=hygieiasecret
 
 RUN \
   mkdir /hygieia
+RUN ls
 
 #COPY hygieia/ /hygieia
 COPY /hygieia/*.jar /hygieia/

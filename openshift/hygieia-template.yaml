@@ -34,7 +34,7 @@ objects:
       paths:
       #TEMP
       - destinationDir: /hygieia
-        sourcePath: /docker/api.jar
+        sourcePath: /docker/*.jar
       - destinationDir: /hygieia
         sourcePath: /docker/properties-builder.sh
       type: Git
