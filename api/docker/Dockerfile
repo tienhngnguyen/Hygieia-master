@@ -19,8 +19,8 @@ RUN cd hygieia
 RUN ls
 
 #COPY hygieia/ /hygieia
-COPY /hygieia/*.jar /hygieia/
-COPY /hygieia/properties-builder.sh /hygieia/
+COPY *.jar /hygieia/
+COPY properties-builder.sh /hygieia/
 
 WORKDIR /hygieia
 
