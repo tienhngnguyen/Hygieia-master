@@ -27,13 +27,11 @@ objects:
         kind: ImageStreamTag
         name: ${APPLICATION_NAME}-api:latest
     source:
-      from-repo: ${GIT_URI}
       contextDir: api
-      #git:
-       # ref: ${GIT_REF}
-        #uri: ${GIT_URI}
-      #type: Git
-      type: Binary
+      git:
+        ref: ${GIT_REF}
+        uri: ${GIT_URI}
+      type: Git
     strategy:
       type: Docker
       dockerStrategy:
@@ -274,13 +272,11 @@ objects:
         kind: ImageStreamTag
         name: ${APPLICATION_NAME}-ui:latest
     source:
-      from-repo: ${GIT_URI}
       contextDir: UI
-      #git:
-        #ref: ${GIT_REF}
-        #uri: ${GIT_URI}
-      #type: Git
-      type: Binary
+      git:
+        ref: ${GIT_REF}
+        uri: ${GIT_URI}
+      type: Git
     strategy:
       type: Docker
       dockerStrategy:
