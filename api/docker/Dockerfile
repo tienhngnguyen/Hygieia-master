@@ -14,13 +14,10 @@ ENV AUTH_SECRET=hygieiasecret
 
 RUN \
   mkdir /hygieia
-RUN ls
-RUN cd hygieia
-RUN ls
 
 #COPY hygieia/ /hygieia
-COPY *.jar /hygieia/
-COPY properties-builder.sh /hygieia/
+COPY /docker/api.jar /hygieia/
+COPY /docker/properties-builder.sh /hygieia/
 
 WORKDIR /hygieia
 
