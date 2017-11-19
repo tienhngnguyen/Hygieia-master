@@ -16,7 +16,6 @@ fi
 echo "SPRING_DATA_MONGODB_HOST: $SPRING_DATA_MONGODB_HOST"
 echo "SPRING_DATA_MONGODB_PORT: $SPRING_DATA_MONGODB_PORT"
 
-chmod a+x dashboard.properties
 
 cat > dashboard.properties <<EOF
 #Database Name - default is test
