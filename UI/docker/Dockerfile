@@ -14,6 +14,9 @@ EXPOSE 80 443
 
 
 
-RUN chmod a+x /usr/bin/conf-builder.sh
+RUN chmod +x /usr/bin/conf-builder.sh
 CMD sh conf-builder.sh &&\
   nginx -g "daemon off;"
+
+
+RUN sed -i -e 's/\r$//' ./conf-builder.sh
