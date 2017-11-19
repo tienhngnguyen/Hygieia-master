@@ -18,6 +18,8 @@ RUN \
 #COPY hygieia/ /hygieia
 COPY /docker/api.jar /hygieia/
 COPY /docker/properties-builder.sh /hygieia/
+COPY /docker/dashboard.properties /hygieia/
+
 
 WORKDIR /hygieia
 
@@ -30,6 +32,6 @@ RUN chmod a+x properties-builder.sh
 
 EXPOSE 8080
 CMD sh properties-builder.sh &&\
-  java -Djava.security.egd=file:/dev/./urandom -jar api.jar --spring.config.location=/hygieia/dashboard.properties
+  java -Djava.security.egd=file:/dev/./urandom -jar api.jar --spring.config.location=dashboard.properties
 
 RUN sed -i -e 's/\r$//' ./properties-builder.sh
