@@ -12,8 +12,11 @@ RUN chown nginx:nginx /usr/share/nginx/html
 
 EXPOSE 80 443
 
-RUN chmod 777 /usr/bin/conf-builder.sh
-RUN chmod 777 /etc/nginx/conf.d/default.conf.templ
+RUN chmod +x /usr/bin/conf-builder.sh
+RUN chmod +x /etc/nginx/conf.d/default.conf.templ
+
+#RUN chmod 777 /usr/bin/conf-builder.sh
+#RUN chmod 777 /etc/nginx/conf.d/default.conf.templ
 
 
 CMD conf-builder.sh &&\

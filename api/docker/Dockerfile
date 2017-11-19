@@ -27,7 +27,7 @@ VOLUME ["/hygieia/logs"]
 
 #TEMP
 RUN chmod a+x properties-builder.sh
-#RUN chmod a+x dashboard.properties
+RUN chmod a+x dashboard.properties
 
 
 EXPOSE 8080

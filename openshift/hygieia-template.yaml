@@ -71,6 +71,7 @@ objects:
           image: ${APPLICATION_NAME}-api
           imagePullPolicy: Always
           name: ${APPLICATION_NAME}-api
+          #TEMP: Execute as root
           serviceAccount: useroot
           serviceAccountName: useroot
           ports:
@@ -316,6 +317,9 @@ objects:
           image: ${APPLICATION_NAME}-ui
           imagePullPolicy: Always
           name: ${APPLICATION_NAME}-ui
+          #TEMP: Execute as root
+          serviceAccount: useroot
+          serviceAccountName: useroot
           ports:
           - containerPort: 80
             protocol: TCP
