@@ -71,6 +71,8 @@ objects:
           image: ${APPLICATION_NAME}-api
           imagePullPolicy: Always
           name: ${APPLICATION_NAME}-api
+          serviceAccount: useroot
+          serviceAccountName: useroot
           ports:
           - containerPort: 8778
             name: jolokia
