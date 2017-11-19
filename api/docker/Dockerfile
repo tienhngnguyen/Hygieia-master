@@ -23,6 +23,13 @@ WORKDIR /hygieia
 
 VOLUME ["/hygieia/logs"]
 
+#TEMP
+RUN chmod a+x properties-builder.sh
+RUN chmod a+x /hygieia/dashboard.properties
+
+
 EXPOSE 8080
 CMD sh properties-builder.sh &&\
   java -Djava.security.egd=file:/dev/./urandom -jar api.jar --spring.config.location=/hygieia/dashboard.properties
+
+RUN sed -i -e 's/\r$//' ./properties-builder.sh

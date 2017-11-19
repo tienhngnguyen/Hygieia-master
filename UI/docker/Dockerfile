@@ -12,6 +12,8 @@ RUN chown nginx:nginx /usr/share/nginx/html
 
 EXPOSE 80 443
 
-RUN chmod +x /usr/bin/conf-builder.sh
-CMD conf-builder.sh &&\
+
+
+RUN chmod a+x /usr/bin/conf-builder.sh
+CMD sh conf-builder.sh &&\
   nginx -g "daemon off;"
