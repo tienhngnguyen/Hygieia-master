@@ -31,7 +31,10 @@ RUN chmod a+x properties-builder.sh
 
 
 EXPOSE 8080
+#CMD sh properties-builder.sh &&\
+ # java -Djava.security.egd=file:/dev/./urandom -jar api.jar --spring.config.location=dashboard.properties
+
 CMD sh properties-builder.sh &&\
-  java -Djava.security.egd=file:/dev/./urandom -jar api.jar --spring.config.location=dashboard.properties
+java -Djava.security.egd=file:/dev/./urandom -jar api.jar
 
 RUN sed -i -e 's/\r$//' ./properties-builder.sh
