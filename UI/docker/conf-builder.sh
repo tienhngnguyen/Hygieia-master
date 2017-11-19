@@ -6,8 +6,6 @@
 export API_HOST=hygieia-api
 export API_PORT=8080
 
-chmod +x /etc/nginx/conf.d/default.conf.templ
-chmod +x /etc/nginx/conf.d/default.conf
 
 sed s:API_HOST:${API_HOST:-127.0.0.1}: /etc/nginx/conf.d/default.conf.templ |\
   sed s:API_PORT:${API_PORT:-8080}: > /etc/nginx/conf.d/default.conf
