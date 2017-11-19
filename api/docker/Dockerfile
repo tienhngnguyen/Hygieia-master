@@ -3,7 +3,7 @@ FROM docker.io/openjdk:8-jre
 MAINTAINER Hygieia@capitalone.com
 
 
-ENV SPRING_DATA_MONGODB_DATABASE=dashboard
+ENV SPRING_DATA_MONGODB_DATABASE=dashboarddb
 ENV SPRING_DATA_MONGODB_HOST=hygieia-mongodb
 ENV SPRING_DATA_MONGODB_PORT=27017
 ENV SPRING_DATA_MONGODB_USERNAME=dashboarduser
@@ -31,10 +31,10 @@ RUN chmod a+x properties-builder.sh
 
 
 EXPOSE 8080
-#CMD sh properties-builder.sh &&\
- # java -Djava.security.egd=file:/dev/./urandom -jar api.jar --spring.config.location=dashboard.properties
-
 CMD sh properties-builder.sh &&\
-java -Djava.security.egd=file:/dev/./urandom -jar api.jar
+  java -Djava.security.egd=file:/dev/./urandom -jar api.jar --spring.config.location=dashboard.properties
+
+#CMD sh properties-builder.sh &&\
+#java -Djava.security.egd=file:/dev/./urandom -jar api.jar
 
 RUN sed -i -e 's/\r$//' ./properties-builder.sh

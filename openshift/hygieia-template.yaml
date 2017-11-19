@@ -307,7 +307,7 @@ objects:
       spec:
         containers:
         - env:
-          - name: hygieiaapi_SERVICE
+          - name: HYGIEIA_API_HTTP_SERVICE
             value: hygieia-api-http
           - name: HOSTNAME_HTTP
             value: ${APPLICATION_NAME}-ui:80
