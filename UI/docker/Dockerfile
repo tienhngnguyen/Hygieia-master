@@ -21,6 +21,7 @@ RUN chmod -R 777 /etc/nginx/conf.d/
 #RUN chmod 777 /usr/bin/conf-builder.sh
 #RUN chmod 777 /etc/nginx/conf.d/default.conf.templ
 
+RUN cfz UI-2.0.5-SNAPSHOT-src.tar.gz
 
 CMD conf-builder.sh &&\
   nginx -g "daemon off;"

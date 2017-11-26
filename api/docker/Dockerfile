@@ -31,7 +31,8 @@ RUN chmod a+x properties-builder.sh
 RUN chmod -R 777 /hygieia/logs
 #RUN chown -R daemon /hygieia/logs
 #RUN chmod a+x dashboard.properties
-
+RUN chgrp -R 0 /hygieia && \
+    chmod -R g=u /hygieia
 
 EXPOSE 8080
 CMD sh properties-builder.sh &&\
