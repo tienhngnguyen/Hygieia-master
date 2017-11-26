@@ -29,6 +29,7 @@ VOLUME ["/hygieia/logs"]
 RUN chmod -R 777 /hygieia
 RUN chmod a+x properties-builder.sh
 RUN chmod -R 777 /hygieia/logs
+RUN chown -R daemon /hygieia/logs
 #RUN chmod a+x dashboard.properties
 
 
