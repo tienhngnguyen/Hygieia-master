@@ -2,7 +2,6 @@ FROM docker.io/openjdk:8-jre
 
 MAINTAINER Hygieia@capitalone.com
 
-USER root
 ENV SPRING_DATA_MONGODB_DATABASE=dashboarddb
 ENV SPRING_DATA_MONGODB_HOST=hygieia-mongodb
 ENV SPRING_DATA_MONGODB_PORT=27017
