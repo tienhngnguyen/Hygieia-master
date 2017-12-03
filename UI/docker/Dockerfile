@@ -13,8 +13,8 @@ RUN chown nginx:nginx /usr/share/nginx/html
 EXPOSE 80 443
 
 RUN chmod -R 777 /usr/bin/
-RUN chmod -R 777 /etc/nginx/conf.d/ \
-  tar -xjC /usr/share/nginx/html/UI-2.0.5-SNAPSHOT-src.tar.gz
+RUN chmod -R 777 /etc/nginx/conf.d/ 
+RUN tar -xjC /usr/share/nginx/html/UI-2.0.5-SNAPSHOT-src.tar.gz
 
 #RUN chmod +x /usr/bin/conf-builder.sh
 #RUN chmod +x /etc/nginx/conf.d/default.conf.templ
