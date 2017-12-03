@@ -7,7 +7,6 @@ MAINTAINER Hygieia@capitalone.com
 COPY /docker/default.conf /etc/nginx/conf.d/default.conf.templ
 COPY /docker/conf-builder.sh /usr/bin/conf-builder.sh
 COPY /docker/html /usr/share/nginx/html
-COPY /docker/html/components/widgets/build /usr/share/nginx/html/components/widgets/build
 #COPY html /usr/share/nginx/html
 RUN chown nginx:nginx /usr/share/nginx/html
 
