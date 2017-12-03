@@ -5,6 +5,7 @@ if [ "$SKIP_PROPERTIES_BUILDER" = true ]; then
   exit 0
 fi
 
+echo $MONGO_STARTED
 # if we are linked, use that info
 if [ "$MONGO_STARTED" != "" ]; then
   # links now use hostnames

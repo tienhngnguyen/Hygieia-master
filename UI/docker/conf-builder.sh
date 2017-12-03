@@ -3,7 +3,7 @@
 
 # if we are linked, use that info
 #linked containers now use hostnames
-export API_HOST=hygieia-api
+export API_HOST=hygieia-api-http
 export API_PORT=8080
 
 
