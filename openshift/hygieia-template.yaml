@@ -112,13 +112,13 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 75
         volumeMounts:
-          - mountPath: /hygieia/logs
-            name: ${APPLICATION_NAME}-api-data
+        - mountPath: /hygieia/logs
+          name: ${APPLICATION_NAME}-api-data
         volumes:
         - emptyDir: {}
           name: ${APPLICATION_NAME}-api-data
-          persistentVolumeClaim": 
-            claimName": ${APPLICATION_NAME}-api
+          persistentVolumeClaim: 
+            claimName: ${APPLICATION_NAME}-api
     triggers:
     - imageChangeParams:
         automatic: true
@@ -129,9 +129,9 @@ objects:
           name: ${APPLICATION_NAME}-api:latest
       type: ImageChange
     - type: ConfigChange
- - apiVersion: v1
-   kind: PersistentVolumeClaim
-   metadata:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
     name: ${APPLICATION_NAME}-api
     spec:
       accessModes:
@@ -412,7 +412,7 @@ objects:
     to:
       kind: Service
       name: ${APPLICATION_NAME}-ui
- # Collector - GitHub
+# Collector - GitHub
 - apiVersion: v1
   kind: ImageStream
   metadata:
@@ -519,8 +519,8 @@ objects:
         volumes:
         - emptyDir: {}
           name: ${APPLICATION_NAME}-github-data
-          persistentVolumeClaim": 
-            claimName": ${APPLICATION_NAME}-github
+          persistentVolumeClaim: 
+            claimName: ${APPLICATION_NAME}-github
     triggers:
     - imageChangeParams:
         automatic: true
