@@ -242,8 +242,8 @@ objects:
         volumes:
         - emptyDir: {}
           name: mongodb-data
-          persistentVolumeClaim": 
-            claimName": ${APPLICATION_NAME}-mongodb
+          persistentVolumeClaim: 
+            claimName: ${APPLICATION_NAME}-mongodb
     test: false
     triggers:
     - imageChangeParams:
