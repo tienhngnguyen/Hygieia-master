@@ -111,6 +111,14 @@ objects:
         restartPolicy: Always
         securityContext: {}
         terminationGracePeriodSeconds: 75
+        volumeMounts:
+          - mountPath: /hygieia/logs
+            name: ${APPLICATION_NAME}-api-data
+        volumes:
+        - emptyDir: {}
+          name: ${APPLICATION_NAME}-api-data
+          persistentVolumeClaim": 
+            claimName": ${APPLICATION_NAME}-api
     triggers:
     - imageChangeParams:
         automatic: true
@@ -121,6 +129,16 @@ objects:
           name: ${APPLICATION_NAME}-api:latest
       type: ImageChange
     - type: ConfigChange
+ - apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+    name: ${APPLICATION_NAME}-api
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${VOLUME_CAPACITY_LOGS}
   # Hygieia API Service
 - apiVersion: v1
   kind: Service
@@ -224,6 +242,8 @@ objects:
         volumes:
         - emptyDir: {}
           name: mongodb-data
+          persistentVolumeClaim": 
+            claimName": ${APPLICATION_NAME}-mongodb
     test: false
     triggers:
     - imageChangeParams:
@@ -236,6 +256,16 @@ objects:
           namespace: openshift
       type: ImageChange
     - type: ConfigChange
+ - apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+    name: ${APPLICATION_NAME}-mongodb
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${VOLUME_CAPACITY_MONGO}
   # MongoDB Service
 - apiVersion: v1
   kind: Service
@@ -382,6 +412,158 @@ objects:
     to:
       kind: Service
       name: ${APPLICATION_NAME}-ui
+ # Collector - GitHub
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: ${APPLICATION_NAME}-github
+    labels:
+      application: ${APPLICATION_NAME}
+  spec:
+    tags:
+    - name: latest
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: ${APPLICATION_NAME}-github
+    labels:
+      application: ${APPLICATION_NAME}
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${APPLICATION_NAME}-github:latest
+    source:
+      contextDir: collectors/scm/github
+      git:
+        ref: ${GIT_REF}
+        uri: ${GIT_URI}
+      type: Git
+    strategy:
+      type: Docker
+      dockerStrategy:
+        dockerfilePath: docker/Dockerfile
+    triggers:
+    - type: ConfigChange
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: ${APPLICATION_NAME}-github
+    labels:
+      app: ${APPLICATION_NAME}-github
+  spec:
+    replicas: 1
+    selector:
+      deploymentconfig: ${APPLICATION_NAME}-github
+    strategy:
+      resources: {}
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          app: ${APPLICATION_NAME}-github
+          deploymentconfig: ${APPLICATION_NAME}-github
+        name: ${APPLICATION_NAME}-github
+      spec:
+        containers:
+        - env:
+          - name: SPRING_DATA_MONGODB_DATABASE
+            value: ${SPRING_DATA_MONGODB_DATABASE}
+          - name: SPRING_DATA_MONGODB_HOST
+            value: hygieia-mongodb
+          - name: SPRING_DATA_MONGODB_USERNAME
+            value: ${SPRING_DATA_MONGODB_USERNAME}
+          - name: SPRING_DATA_MONGODB_PASSWORD
+            value: ${SPRING_DATA_MONGODB_PASSWORD}
+          - name: HYGIEIA_API_HTTP_SERVICE_HOST
+            value: hygieia-api-http
+          image: ${APPLICATION_NAME}-github
+          imagePullPolicy: Always
+          name: ${APPLICATION_NAME}-github
+          #TEMP: Execute as root
+          serviceAccount: useroot
+          serviceAccountName: useroot
+          #livenessProbe:
+           # failureThreshold: 2
+            #httpGet:
+             # path: "/api"
+              #port: 8080
+              #scheme: HTTP
+            #initialDelaySeconds: 60
+            #periodSeconds: 10
+            #successThreashold: 1
+            #timeoutSeconds: 1
+          #readinessProbe:
+           # failureThreshold: 3
+            #httpGet:
+              #path: "/api"
+              #port: 8080
+              #scheme: HTTP
+            #initialDelaySeconds: 10
+            #periodSeconds: 10
+            #successThreashold: 1
+            #timeoutSeconds: 1
+          #resources:
+            #limits:
+              #memory: 500Mi
+            #requests:
+              #memory: 200Mi
+        terminationMessagePath: /dev/termination-log
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 75
+        volumeMounts:
+          - mountPath: /hygieia/logs
+            name: ${APPLICATION_NAME}-github-data
+        volumes:
+        - emptyDir: {}
+          name: ${APPLICATION_NAME}-github-data
+          persistentVolumeClaim": 
+            claimName": ${APPLICATION_NAME}-github
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${APPLICATION_NAME}-github
+        from:
+          kind: ImageStreamTag
+          name: ${APPLICATION_NAME}-github:latest
+      type: ImageChange
+    - type: ConfigChange
+ - apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+    name: ${APPLICATION_NAME}-github
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${VOLUME_CAPACITY_LOGS}
+  # Hygieia Git Service
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      service.alpha.openshift.io/dependencies: '[{"name":"hygieia-mongodb","namespace":"","kind":"Service"}]'
+    labels:
+      app: ${APPLICATION_NAME}-github
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-github-http
+    selector:
+      deploymentconfig: ${APPLICATION_NAME}-github
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-github-route
+  spec:
+    to:
+      kind: Service
+      name: ${APPLICATION_NAME}-github-http
+      weight: 100
 parameters:
 - displayName: Application name
   name: APPLICATION_NAME
@@ -421,3 +603,13 @@ parameters:
   description: MongoDB for Dashboard
   name: SPRING_DATA_MONGODB_DATABASE
   value: dashboarddb
+- displayName: VOLUME_CAPACITY MongoDB
+  name: VOLUME_CAPACITY_MONGO
+  description: Volume space available for data, e.g. 512Mi, 2Gi.
+  value: 2Gi
+  required: true
+- displayName: VOLUME_CAPACITY Logs
+  name: VOLUME_CAPACITY_LOGS
+  description: Volume space available for data, e.g. 512Mi, 2Gi.
+  value: 1Gi
+  required: true
