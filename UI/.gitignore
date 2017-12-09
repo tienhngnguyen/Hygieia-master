@@ -39,7 +39,7 @@ build/Release
 node_modules
 
 # Bower intermediate storage
-bower_components
+#bower_components
 
 # Project specific artifacts
 src/**/*.css

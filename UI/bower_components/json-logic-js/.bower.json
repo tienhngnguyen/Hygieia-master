@@ -1,0 +1,35 @@
+{
+  "name": "json-logic-js",
+  "version": "1.2.0",
+  "homepage": "https://github.com/jwadhams/json-logic-js",
+  "authors": [
+    "Jeremy Wadhams <jwadhams@dealerinspire.com>"
+  ],
+  "description": "Serialize complex logic in JSON, run it in JavaScript",
+  "main": "logic.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "json",
+    "logic"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "gulpfile.js"
+  ],
+  "_release": "1.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.0",
+    "commit": "6cbd58185f6fe4417ce6492aade55615c3e29120"
+  },
+  "_source": "https://github.com/jwadhams/json-logic-js.git",
+  "_target": "^1.0.11",
+  "_originalSource": "json-logic-js"
+}
