@@ -256,9 +256,9 @@ objects:
           namespace: openshift
       type: ImageChange
     - type: ConfigChange
- - apiVersion: v1
-   kind: PersistentVolumeClaim
-   metadata:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
     name: ${APPLICATION_NAME}-mongodb
     spec:
       accessModes:
