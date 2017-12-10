@@ -514,8 +514,8 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 75
         volumeMounts:
-          - mountPath: /hygieia/logs
-            name: ${APPLICATION_NAME}-github-data
+        - mountPath: /hygieia/logs
+          name: ${APPLICATION_NAME}-github-data
         volumes:
         - emptyDir: {}
           name: ${APPLICATION_NAME}-github-data
