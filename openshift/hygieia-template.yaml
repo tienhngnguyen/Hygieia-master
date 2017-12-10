@@ -115,7 +115,6 @@ objects:
         - mountPath: /hygieia/logs
           name: ${APPLICATION_NAME}-api-data
         volumes:
-        - emptyDir: {}
           name: ${APPLICATION_NAME}-api-data
           persistentVolumeClaim: 
             claimName: ${APPLICATION_NAME}-api
@@ -240,7 +239,6 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 30
         volumes:
-        - emptyDir: {}
           name: mongodb-data
           persistentVolumeClaim: 
             claimName: ${APPLICATION_NAME}-mongodb
@@ -517,7 +515,6 @@ objects:
         - mountPath: /hygieia/logs
           name: ${APPLICATION_NAME}-github-data
         volumes:
-        - emptyDir: {}
           name: ${APPLICATION_NAME}-github-data
           persistentVolumeClaim: 
             claimName: ${APPLICATION_NAME}-github
