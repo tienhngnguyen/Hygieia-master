@@ -132,12 +132,12 @@ objects:
   kind: PersistentVolumeClaim
   metadata:
     name: ${APPLICATION_NAME}-api
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY_LOGS}
   # Hygieia API Service
 - apiVersion: v1
   kind: Service
@@ -258,12 +258,12 @@ objects:
   kind: PersistentVolumeClaim
   metadata:
     name: ${APPLICATION_NAME}-mongodb
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 2Gi
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY_MONGO}
   # MongoDB Service
 - apiVersion: v1
   kind: Service
@@ -532,12 +532,12 @@ objects:
   kind: PersistentVolumeClaim
   metadata:
     name: ${APPLICATION_NAME}-github
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY_LOGS}
   # Hygieia Git Service
 #- apiVersion: v1
  # kind: Service
