@@ -115,9 +115,9 @@ objects:
         - mountPath: /hygieia/logs
           name: ${APPLICATION_NAME}-api-data
         volumes:
-          name: ${APPLICATION_NAME}-api-data
-          persistentVolumeClaim: 
-            claimName: ${APPLICATION_NAME}-api
+          - name: ${APPLICATION_NAME}-api-data
+            persistentVolumeClaim: 
+              claimName: ${APPLICATION_NAME}-api
     triggers:
     - imageChangeParams:
         automatic: true
@@ -239,9 +239,9 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 30
         volumes:
-          name: mongodb-data
-          persistentVolumeClaim: 
-            claimName: ${APPLICATION_NAME}-mongodb
+          - name: mongodb-data
+            persistentVolumeClaim: 
+              claimName: ${APPLICATION_NAME}-mongodb
     test: false
     triggers:
     - imageChangeParams:
@@ -515,9 +515,9 @@ objects:
         - mountPath: /hygieia/logs
           name: ${APPLICATION_NAME}-github-data
         volumes:
-          name: ${APPLICATION_NAME}-github-data
-          persistentVolumeClaim: 
-            claimName: ${APPLICATION_NAME}-github
+          - name: ${APPLICATION_NAME}-github-data
+            persistentVolumeClaim: 
+              claimName: ${APPLICATION_NAME}-github
     triggers:
     - imageChangeParams:
         automatic: true
