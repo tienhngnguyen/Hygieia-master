@@ -531,9 +531,9 @@ objects:
           name: ${APPLICATION_NAME}-github:latest
       type: ImageChange
     - type: ConfigChange
- - apiVersion: v1
-   kind: PersistentVolumeClaim
-   metadata:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
     name: ${APPLICATION_NAME}-github
     spec:
       accessModes:
