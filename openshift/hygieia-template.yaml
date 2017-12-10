@@ -134,10 +134,10 @@ objects:
     name: ${APPLICATION_NAME}-api
     spec:
       accessModes:
-        - ReadWriteOnce
+      - ReadWriteOnce
       resources:
         requests:
-          storage: ${VOLUME_CAPACITY_LOGS}
+          storage: 1Gi
   # Hygieia API Service
 - apiVersion: v1
   kind: Service
@@ -260,10 +260,10 @@ objects:
     name: ${APPLICATION_NAME}-mongodb
     spec:
       accessModes:
-        - ReadWriteOnce
+      - ReadWriteOnce
       resources:
         requests:
-          storage: ${VOLUME_CAPACITY_MONGO}
+          storage: 2Gi
   # MongoDB Service
 - apiVersion: v1
   kind: Service
@@ -534,33 +534,33 @@ objects:
     name: ${APPLICATION_NAME}-github
     spec:
       accessModes:
-        - ReadWriteOnce
+      - ReadWriteOnce
       resources:
         requests:
-          storage: ${VOLUME_CAPACITY_LOGS}
+          storage: 1Gi
   # Hygieia Git Service
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      service.alpha.openshift.io/dependencies: '[{"name":"hygieia-mongodb","namespace":"","kind":"Service"}]'
-    labels:
-      app: ${APPLICATION_NAME}-github
-      application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-github-http
-    selector:
-      deploymentconfig: ${APPLICATION_NAME}-github
-- apiVersion: v1
-  kind: Route
-  metadata:
-    labels:
-      application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-github-route
-  spec:
-    to:
-      kind: Service
-      name: ${APPLICATION_NAME}-github-http
-      weight: 100
+#- apiVersion: v1
+ # kind: Service
+  #metadata:
+   # annotations:
+    #  service.alpha.openshift.io/dependencies: '[{"name":"hygieia-mongodb","namespace":"","kind":"Service"}]'
+    #labels:
+    #  app: ${APPLICATION_NAME}-github
+     # application: ${APPLICATION_NAME}
+    #name: ${APPLICATION_NAME}-github-http
+    #selector:
+      #deploymentconfig: ${APPLICATION_NAME}-github
+#- apiVersion: v1
+ # kind: Route
+  #metadata:
+   # labels:
+    #  application: ${APPLICATION_NAME}
+    #name: ${APPLICATION_NAME}-github-route
+  #spec:
+   # to:
+    #  kind: Service
+     # name: ${APPLICATION_NAME}-github-http
+      #weight: 100
 parameters:
 - displayName: Application name
   name: APPLICATION_NAME
