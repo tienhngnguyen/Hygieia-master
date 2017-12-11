@@ -6,9 +6,9 @@ MAINTAINER Hygieia@capitalone.com
 RUN \
   mkdir /hygieia
 
-
-COPY github-properties-builder.sh /hygieia/
 COPY *.jar /hygieia/
+COPY github-properties-builder.sh /hygieia/
+
 
 WORKDIR /hygieia
 
