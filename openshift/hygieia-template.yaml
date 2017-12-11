@@ -476,7 +476,7 @@ objects:
           - name: HYGIEIA_API_HTTP_SERVICE_HOST
             value: hygieia-api-http
           - name: SPRING_DATA_MONGODB_PORT
-            value: 27017
+            value: "27017"
           image: ${APPLICATION_NAME}-github
           imagePullPolicy: Always
           name: ${APPLICATION_NAME}-github
