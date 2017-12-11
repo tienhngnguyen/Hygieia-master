@@ -6,7 +6,7 @@ MAINTAINER Hygieia@capitalone.com
 RUN \
   mkdir /hygieia
 
-COPY *.jar /hygieia/
+COPY github-scm-collector-2.0.5-SNAPSHOT.jar /hygieia/
 COPY github-properties-builder.sh /hygieia/
 
 WORKDIR /hygieia

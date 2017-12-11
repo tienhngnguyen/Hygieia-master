@@ -501,11 +501,11 @@ objects:
             #periodSeconds: 10
             #successThreashold: 1
             #timeoutSeconds: 1
-          #resources:
-            #limits:
-              #memory: 500Mi
-            #requests:
-              #memory: 200Mi
+          resources:
+            limits:
+              memory: 500Mi
+            requests:
+              memory: 200Mi
         terminationMessagePath: /dev/termination-log
         dnsPolicy: ClusterFirst
         restartPolicy: Always
