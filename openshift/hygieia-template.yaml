@@ -465,18 +465,18 @@ objects:
       spec:
         containers:
         - env:
-          - name: SPRING_DATA_MONGODB_DATABASE
+          - name: MONGODB_DATABASE
             value: ${SPRING_DATA_MONGODB_DATABASE}
           - name: SPRING_DATA_MONGODB_HOST
             value: hygieia-mongodb
-          - name: SPRING_DATA_MONGODB_USERNAME
+          - name: MONGODB_USER
             value: ${SPRING_DATA_MONGODB_USERNAME}
-          - name: SPRING_DATA_MONGODB_PASSWORD
+          - name: MONGODB_PASSWORD
             value: ${SPRING_DATA_MONGODB_PASSWORD}
           - name: HYGIEIA_API_HTTP_SERVICE_HOST
             value: hygieia-api-http
-          - name: SPRING_DATA_MONGODB_PORT
-            value: "27017"
+          - name: MONGODB_ADMIN_PASSWORD
+            value: ${SPRING_DATA_MONGODB_ADMIN_PASSWORD}
           image: ${APPLICATION_NAME}-github
           imagePullPolicy: Always
           name: ${APPLICATION_NAME}-github
