@@ -541,17 +541,17 @@ objects:
       requests:
         storage: ${VOLUME_CAPACITY_LOGS}
   # Hygieia Git Service
-#- apiVersion: v1
- # kind: Service
-  #metadata:
-   # annotations:
-    #  service.alpha.openshift.io/dependencies: '[{"name":"hygieia-mongodb","namespace":"","kind":"Service"}]'
-    #labels:
-    #  app: ${APPLICATION_NAME}-github
-     # application: ${APPLICATION_NAME}
-    #name: ${APPLICATION_NAME}-github-http
-    #selector:
-      #deploymentconfig: ${APPLICATION_NAME}-github
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      service.alpha.openshift.io/dependencies: '[{"name":"hygieia-mongodb","namespace":"","kind":"Service"}]'
+    labels:
+      app: ${APPLICATION_NAME}-github
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-github
+    selector:
+      deploymentconfig: ${APPLICATION_NAME}-github
 #- apiVersion: v1
  # kind: Route
   #metadata:
