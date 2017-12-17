@@ -483,6 +483,10 @@ objects:
           #TEMP: Execute as root
           serviceAccount: useroot
           serviceAccountName: useroot
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
           #livenessProbe:
            # failureThreshold: 2
             #httpGet:
@@ -550,6 +554,13 @@ objects:
       app: ${APPLICATION_NAME}-github
       application: ${APPLICATION_NAME}
     name: ${APPLICATION_NAME}-github
+    selector:
+      deploymentconfig: ${APPLICATION_NAME}-github
+  spec:
+    ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: 8081
     selector:
       deploymentconfig: ${APPLICATION_NAME}-github
 #- apiVersion: v1
