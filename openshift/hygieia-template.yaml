@@ -467,7 +467,7 @@ objects:
         - env:
           - name: MONGODB_DATABASE
             value: ${SPRING_DATA_MONGODB_DATABASE}
-          - name: SPRING_DATA_MONGODB_HOST
+          - name: HYGIEIA_MONGODB
             value: hygieia-mongodb
           - name: MONGODB_USER
             value: ${SPRING_DATA_MONGODB_USERNAME}
@@ -550,6 +550,7 @@ objects:
   metadata:
     annotations:
       service.alpha.openshift.io/dependencies: '[{"name":"hygieia-mongodb","namespace":"","kind":"Service"}]'
+      service.alpha.openshift.io/dependencies: '[{"name":"hygieia-api-http","namespace":"","kind":"Service"}]'
     labels:
       app: ${APPLICATION_NAME}-github
       application: ${APPLICATION_NAME}
