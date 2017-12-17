@@ -15,8 +15,11 @@ then
 else 
 	PROP_FILE=hygieia-github-scm-collector.properties
 fi
-  
-if [ "$MONGO_PORT" != "" ]; then
+  #if [ "$MONGO_PORT" != "" ]; then
+echo "MONGODB_HOST: $MONGODB_HOST"
+echo "MONGODB_PORT: $MONGODB_PORT"
+echo "$HYGIEIA_MONGODB_PORT_27017_TCP_PORT"
+if [ "$HYGIEIA_MONGODB_PORT_27017_TCP_PORT" != "" ]; then
 	# Sample: MONGO_PORT=tcp://172.17.0.20:27017
 	MONGODB_HOST=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\1;'`
 	MONGODB_PORT=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\2;'`
