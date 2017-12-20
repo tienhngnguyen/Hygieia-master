@@ -34,19 +34,19 @@ echo "MONGODB_PORT: $MONGODB_PORT"
 
 cat > $PROP_FILE <<EOF
 #Database Name
-dbname=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_DATABASE}
+dbname=dashboarddb
 
 #Database HostName - default is localhost
-dbhost=${SPRING_DATA_MONGODB_DATABASE}
+dbhost=hygieia-mongodb
 
 #Database Port - default is 27017
-dbport=${MONGODB_PORT}
+dbport=27017
 
 #Database Username - default is blank
-dbusername=${SPRING_DATA_MONGODB_USERNAME}
+dbusername=dashboarduser
 
 #Database Password - default is blank
-dbpassword=${SPRING_DATA_MONGODB_PASSWORD}
+dbpassword=dbpassword
 
 #Collector schedule (required)
 github.cron=${GITHUB_CRON:-0 0/5 * * * *}
