@@ -642,7 +642,7 @@ objects:
           kind: ImageStreamTag
           name: jenkins-blueocean:latest
           namespace: dashboard
-        lastTriggeredImage:
+        lastTriggeredImage: ""
     - type: ConfigChange
     replicas: 1
     selector: 
