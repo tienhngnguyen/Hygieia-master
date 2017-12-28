@@ -576,6 +576,29 @@ objects:
     #  kind: Service
      # name: ${APPLICATION_NAME}-github-http
       #weight: 100
+# Collector - Jenkins
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: jenkins-blueocean
+    labels:
+      application: jenkins-blueocean
+  spec:
+    source:
+      git:
+        uri: https://github.com/tienhngnguyen/jenkins-blueocean
+      type: Git
+    strategy:                     
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: jenkins:latest
+          namespace: openshift
+      type: Source
+    output:                       
+      to:
+        kind: ImageStreamTag
+        name: jenkins-blueocean:latest
 parameters:
 - displayName: Application name
   name: APPLICATION_NAME
