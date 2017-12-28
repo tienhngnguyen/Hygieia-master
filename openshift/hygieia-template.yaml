@@ -628,7 +628,7 @@ objects:
   metadata: 
     name: ${JENKINS_SERVICE_NAME}
     annotations: 
-      template.alpha.openshift.io/wait-for-ready: true
+      template.alpha.openshift.io/wait-for-ready: "true"
   spec: 
     strategy: 
       type: Recreate
@@ -737,7 +737,7 @@ objects:
     name: ${JENKINS_SERVICE_NAME}
     annotations: 
       service.alpha.openshift.io/dependencies: "[{\"name\": \"${JNLP_SERVICE_NAME}\", \"namespace\": \"\", \"kind\": \"Service\"}]"
-      service.openshift.io/infrastructure: true
+      service.openshift.io/infrastructure: "true"
   spec: 
     ports: 
     - name: web
