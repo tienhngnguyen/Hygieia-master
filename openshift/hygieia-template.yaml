@@ -640,8 +640,8 @@ objects:
         - jenkins
         from:
           kind: ImageStreamTag
-          name: "${JENKINS_IMAGE_STREAM_TAG}"
-          namespace: "${NAMESPACE}"
+          name: jenkins-blueocean:latest
+          namespace: dashboard
         lastTriggeredImage: ''
     - type: ConfigChange
     replicas: 1
