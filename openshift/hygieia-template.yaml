@@ -705,7 +705,7 @@ objects:
   metadata: 
     name: ${JENKINS_SERVICE_NAME}
     annotations: 
-      serviceaccounts.openshift.io/oauth-redirectreference.jenkins: "{\"kind\":\"OAuthRedirectReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"Route\",\"name\":\"${JENKINS_SERVICE_NAME}\"}}"
+      serviceaccounts.openshift.io/oauth-redirectreference.jenkins: '{\"kind\":\"OAuthRedirectReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"Route\",\"name\":\"${JENKINS_SERVICE_NAME}\"}}'
 - kind: RoleBinding
   apiVersion: v1
   metadata: 
@@ -736,7 +736,7 @@ objects:
   metadata: 
     name: ${JENKINS_SERVICE_NAME}
     annotations: 
-      service.alpha.openshift.io/dependencies: "[{\"name\": \"${JNLP_SERVICE_NAME}\", \"namespace\": \"\", \"kind\": \"Service\"}]"
+      service.alpha.openshift.io/dependencies: '[{\"name\": \"${JNLP_SERVICE_NAME}\", \"namespace\": \"\", \"kind\": \"Service\"}]'
       service.openshift.io/infrastructure: 'true'
   spec: 
     ports: 
