@@ -602,151 +602,152 @@ objects:
 ######COPY PASTE########
 - kind: Route
   apiVersion: v1
-  metadata: 
-    name: ${JENKINS_SERVICE_NAME}
-    annotations: 
+  metadata:
+    name: "${JENKINS_SERVICE_NAME}"
+    annotations:
       template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
-  spec: 
-    to: 
+  spec:
+    to:
       kind: Service
-      name: ${JENKINS_SERVICE_NAME}
-    tls: 
+      name: "${JENKINS_SERVICE_NAME}"
+    tls:
       termination: edge
-      insecureEdgeTerminationPolicy: Redirect 
+      insecureEdgeTerminationPolicy: Redirect
 - kind: PersistentVolumeClaim
   apiVersion: v1
-  metadata: 
-    name: ${JENKINS_SERVICE_NAME}
-  spec: 
-    accessModes: 
-      - ReadWriteOnce
-    resources: 
-      requests: 
-        storage: ${VOLUME_CAPACITY_JENKINS}
+  metadata:
+    name: "${JENKINS_SERVICE_NAME}"
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: "${VOLUME_CAPACITY}"
 - kind: DeploymentConfig
   apiVersion: v1
-  metadata: 
-    name: ${JENKINS_SERVICE_NAME}
-    annotations: 
+  metadata:
+    name: "${JENKINS_SERVICE_NAME}"
+    annotations:
       template.alpha.openshift.io/wait-for-ready: 'true'
-  spec: 
-    strategy: 
+  spec:
+    strategy:
       type: Recreate
-    triggers: 
+    triggers:
     - type: ImageChange
-      imageChangeParams: 
+      imageChangeParams:
         automatic: true
-        containerNames: 
+        containerNames:
         - jenkins
-        from: 
+        from:
           kind: ImageStreamTag
-          name: jenkins-blueocean:latest
-          namespace: dashboard
+          name: "${JENKINS_IMAGE_STREAM_TAG}"
+          namespace: "${NAMESPACE}"
         lastTriggeredImage: ''
     - type: ConfigChange
     replicas: 1
-    selector: 
-      name: ${JENKINS_SERVICE_NAME}
-    template: 
-      metadata: 
-        labels: 
-          name: ${JENKINS_SERVICE_NAME}
-    spec: 
-      serviceAccountName: ${JENKINS_SERVICE_NAME}
-      containers: 
-      - name: jenkins
-        image: jenkins-blueocean
-        readinessProbe: 
-          timeoutSeconds: 3
-          initialDelaySeconds: 3
-          httpGet: 
-            path: "/login"
-            port: 8080
-        livenessProbe: 
-          timeoutSeconds: 3
-          initialDelaySeconds: 420
-          failureThreshold: 30
-          httpGet: 
-            path: "/login"
-            port: 8080
-        env: 
-        - name: OPENSHIFT_ENABLE_OAUTH
-          value: ${ENABLE_OAUTH}
-        - name: OPENSHIFT_ENABLE_REDIRECT_PROMPT
-          value: 'true'
-        - name: KUBERNETES_MASTER
-          value: https://kubernetes.default:443
-        - name: KUBERNETES_TRUST_CERTIFICATES
-          value: 'true'
-        - name: JENKINS_SERVICE_NAME
-          value: ${JENKINS_SERVICE_NAME}
-        - name: JNLP_SERVICE_NAME
-          value: ${JNLP_SERVICE_NAME}
-        resources: 
-          limits: 
-            memory: ${MEMORY_LIMIT}
-        volumeMounts: 
-        - name: ${JENKINS_SERVICE_NAME}-data
-          mountPath: /var/lib/jenkins
-        terminationMessagePath: /dev/termination-log
-        imagePullPolicy: IfNotPresent
-        capabilities: {}
-        securityContext: 
+    selector:
+      name: "${JENKINS_SERVICE_NAME}"
+    template:
+      metadata:
+        labels:
+          name: "${JENKINS_SERVICE_NAME}"
+      spec:
+        serviceAccountName: "${JENKINS_SERVICE_NAME}"
+        containers:
+        - name: jenkins
+          image: " "
+          readinessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 3
+            httpGet:
+              path: "/login"
+              port: 8080
+          livenessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 420
+            failureThreshold: 30
+            httpGet:
+              path: "/login"
+              port: 8080
+          env:
+          - name: OPENSHIFT_ENABLE_OAUTH
+            value: "${ENABLE_OAUTH}"
+          - name: OPENSHIFT_ENABLE_REDIRECT_PROMPT
+            value: 'true'
+          - name: KUBERNETES_MASTER
+            value: https://kubernetes.default:443
+          - name: KUBERNETES_TRUST_CERTIFICATES
+            value: 'true'
+          - name: JENKINS_SERVICE_NAME
+            value: "${JENKINS_SERVICE_NAME}"
+          - name: JNLP_SERVICE_NAME
+            value: "${JNLP_SERVICE_NAME}"
+          resources:
+            limits:
+              memory: "${MEMORY_LIMIT}"
+          volumeMounts:
+          - name: "${JENKINS_SERVICE_NAME}-data"
+            mountPath: "/var/lib/jenkins"
+          terminationMessagePath: "/dev/termination-log"
+          imagePullPolicy: IfNotPresent
           capabilities: {}
-          privileged: false
-      volumes: 
-      - name: ${JENKINS_SERVICE_NAME}-data
-        persistentVolumeClaim: 
-          claimName: ${JENKINS_SERVICE_NAME}
-      restartPolicy: Always
-      dnsPolicy: ClusterFirst
+          securityContext:
+            capabilities: {}
+            privileged: false
+        volumes:
+        - name: "${JENKINS_SERVICE_NAME}-data"
+          persistentVolumeClaim:
+            claimName: "${JENKINS_SERVICE_NAME}"
+        restartPolicy: Always
+        dnsPolicy: ClusterFirst
 - kind: ServiceAccount
   apiVersion: v1
-  metadata: 
-    name: ${JENKINS_SERVICE_NAME}
-    annotations: 
-      serviceaccounts.openshift.io/oauth-redirectreference.jenkins: '{\"kind\":\"OAuthRedirectReference\",\"apiVersion\":\"v1\",\"reference\":{\"kind\":\"Route\",\"name\":\"${JENKINS_SERVICE_NAME}\"}}'
+  metadata:
+    name: "${JENKINS_SERVICE_NAME}"
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirectreference.jenkins: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"${JENKINS_SERVICE_NAME}"}}'
 - kind: RoleBinding
   apiVersion: v1
-  metadata: 
-    name: ${JENKINS_SERVICE_NAME}_edit
-  groupNames: null
-  subjects: 
+  metadata:
+    name: "${JENKINS_SERVICE_NAME}_edit"
+  groupNames: 
+  subjects:
   - kind: ServiceAccount
-    name: ${JENKINS_SERVICE_NAME}
-  roleRef: 
+    name: "${JENKINS_SERVICE_NAME}"
+  roleRef:
     name: edit
 - kind: Service
   apiVersion: v1
-  metadata: 
-    name: ${JNLP_SERVICE_NAME}
-  spec: 
-    ports: 
+  metadata:
+    name: "${JNLP_SERVICE_NAME}"
+  spec:
+    ports:
     - name: agent
       protocol: TCP
       port: 50000
       targetPort: 50000
       nodePort: 0
-    selector: 
-      name: ${JENKINS_SERVICE_NAME}
+    selector:
+      name: "${JENKINS_SERVICE_NAME}"
     type: ClusterIP
     sessionAffinity: None
 - kind: Service
   apiVersion: v1
-  metadata: 
-    name: ${JENKINS_SERVICE_NAME}
-    annotations: 
-      service.alpha.openshift.io/dependencies: '[{\"name\": \"${JNLP_SERVICE_NAME}\", \"namespace\": \"\", \"kind\": \"Service\"}]'
+  metadata:
+    name: "${JENKINS_SERVICE_NAME}"
+    annotations:
+      service.alpha.openshift.io/dependencies: '[{"name": "${JNLP_SERVICE_NAME}",
+        "namespace": "", "kind": "Service"}]'
       service.openshift.io/infrastructure: 'true'
-  spec: 
-    ports: 
+  spec:
+    ports:
     - name: web
       protocol: TCP
       port: 80
       targetPort: 8080
       nodePort: 0
-    selector: 
-      name: ${JENKINS_SERVICE_NAME}
+    selector:
+      name: "${JENKINS_SERVICE_NAME}"
     type: ClusterIP
     sessionAffinity: None
 parameters:
@@ -809,13 +810,14 @@ parameters:
   value: jenkins-jnlp
 - name: ENABLE_OAUTH
   displayName: Enable OAuth in Jenkins
-  description: Whether to enable OAuth OpenShift integration. If false, the static account 'admin' will be initialized with the password 'password'.
-  value: true
+  description: Whether to enable OAuth OpenShift integration. If false, the static
+    account 'admin' will be initialized with the password 'password'.
+  value: 'true'
 - name: MEMORY_LIMIT
   displayName: Memory Limit
   description: Maximum amount of memory the container can use.
   value: 512Mi
-- name: VOLUME_CAPACITY_JENKINS
+- name: VOLUME_CAPACITY
   displayName: Volume Capacity
   description: Volume space available for data, e.g. 512Mi, 2Gi.
   value: 1Gi
