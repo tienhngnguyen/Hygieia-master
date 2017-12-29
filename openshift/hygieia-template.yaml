@@ -673,11 +673,11 @@ objects:
         - name: OPENSHIFT_ENABLE_OAUTH
           value: ${ENABLE_OAUTH}
         - name: OPENSHIFT_ENABLE_REDIRECT_PROMPT
-          value: true
+          value: 'true'
         - name: KUBERNETES_MASTER
           value: https://kubernetes.default:443
         - name: KUBERNETES_TRUST_CERTIFICATES
-          value: true
+          value: 'true'
         - name: JENKINS_SERVICE_NAME
           value: ${JENKINS_SERVICE_NAME}
         - name: JNLP_SERVICE_NAME
