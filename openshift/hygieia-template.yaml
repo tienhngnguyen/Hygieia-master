@@ -642,7 +642,7 @@ objects:
           kind: ImageStreamTag
           name: jenkins-blueocean:latest
           namespace: dashboard
-        lastTriggeredImage: ""
+        lastTriggeredImage: {}
     - type: ConfigChange
     replicas: 1
     selector: 
@@ -692,7 +692,7 @@ objects:
         imagePullPolicy: IfNotPresent
         capabilities: 
         securityContext: 
-          capabilities: 
+          capabilities: {}
           privileged: false
       volumes: 
       - name: ${JENKINS_SERVICE_NAME}-data
