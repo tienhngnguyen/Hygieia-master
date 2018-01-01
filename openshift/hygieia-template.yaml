@@ -750,6 +750,140 @@ objects:
       name: "${JENKINS_SERVICE_NAME}"
     type: ClusterIP
     sessionAffinity: None
+# Jenkins Collector
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: ${APPLICATION_NAME}-jenkins
+    labels:
+      application: ${APPLICATION_NAME}
+  spec:
+    tags:
+    - name: latest
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: ${APPLICATION_NAME}-jenkins
+    labels:
+      application: ${APPLICATION_NAME}
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${APPLICATION_NAME}-jenkins:latest
+    source:
+      contextDir: collectors/build/jenkins/
+      git:
+        ref: ${GIT_REF}
+        uri: ${GIT_URI}
+      type: Git
+    strategy:
+      type: Docker
+      dockerStrategy:
+        dockerfilePath: docker/Dockerfile
+    triggers:
+    - type: ConfigChange
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: ${APPLICATION_NAME}-jenkins
+    labels:
+      app: ${APPLICATION_NAME}-jenkins
+  spec:
+    replicas: 1
+    selector:
+      deploymentconfig: ${APPLICATION_NAME}-jenkins
+    strategy:
+      resources: {}
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          app: ${APPLICATION_NAME}-jenkins
+          deploymentconfig: ${APPLICATION_NAME}-jenkins
+        name: ${APPLICATION_NAME}-jenkins
+      spec:
+        containers:
+        - env:
+          - name: MONGODB_DATABASE
+            value: ${SPRING_DATA_MONGODB_DATABASE}
+          - name: HYGIEIA_MONGODB
+            value: hygieia-mongodb
+          - name: MONGODB_USER
+            value: ${SPRING_DATA_MONGODB_USERNAME}
+          - name: MONGODB_PASSWORD
+            value: ${SPRING_DATA_MONGODB_PASSWORD}
+          - name: HYGIEIA_API_HTTP_SERVICE_HOST
+            value: hygieia-api-http
+          - name: MONGODB_ADMIN_PASSWORD
+            value: ${SPRING_DATA_MONGODB_ADMIN_PASSWORD}
+          image: ${APPLICATION_NAME}-jenkins
+          imagePullPolicy: Always
+          name: ${APPLICATION_NAME}-jenkins
+          #TEMP: Execute as root
+          serviceAccount: useroot
+          serviceAccountName: useroot
+          ports:
+          - containerPort: 8082
+            name: http
+            protocol: TCP
+          #livenessProbe:
+           # failureThreshold: 2
+            #httpGet:
+             # path: "/api"
+              #port: 8080
+              #scheme: HTTP
+            #initialDelaySeconds: 60
+            #periodSeconds: 10
+            #successThreashold: 1
+            #timeoutSeconds: 1
+          #readinessProbe:
+           # failureThreshold: 3
+            #httpGet:
+              #path: "/api"
+              #port: 8080
+              #scheme: HTTP
+            #initialDelaySeconds: 10
+            #periodSeconds: 10
+            #successThreashold: 1
+            #timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 500Mi
+            requests:
+              memory: 200Mi
+        terminationMessagePath: /dev/termination-log
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 75
+        volumeMounts:
+        - mountPath: /hygieia/logs
+          name: ${APPLICATION_NAME}-jenkins-data
+        volumes:
+          - name: ${APPLICATION_NAME}-jenkins-data
+            persistentVolumeClaim: 
+              claimName: ${APPLICATION_NAME}-jenkins
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${APPLICATION_NAME}-jenkins
+        from:
+          kind: ImageStreamTag
+          name: ${APPLICATION_NAME}-jenkins:latest
+      type: ImageChange
+    - type: ConfigChange
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: ${APPLICATION_NAME}-jenkins
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY_LOGS}
 parameters:
 - displayName: Application name
   name: APPLICATION_NAME

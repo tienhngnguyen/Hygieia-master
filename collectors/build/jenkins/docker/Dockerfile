@@ -6,8 +6,8 @@ MAINTAINER Hygieia@capitalone.com
 RUN \
   mkdir /hygieia
 
-COPY *.jar /hygieia/
-COPY jenkins-build-properties-builder.sh /hygieia/
+COPY /docker/*.jar /hygieia/
+COPY /docker/jenkins-build-properties-builder.sh /hygieia/
 
 WORKDIR /hygieia
 

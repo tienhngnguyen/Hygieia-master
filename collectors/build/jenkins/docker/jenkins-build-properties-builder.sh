@@ -15,11 +15,11 @@ then
 else 
 	PROP_FILE=hygieia-jenkins-build-collector.properties
 fi
-  
-if [ "$MONGO_PORT" != "" ]; then
+  # if [ "$MONGO_PORT" != "" ]; then
+if [ "$HYGIEIA_MONGODB_PORT_27017_TCP_PORT" != "" ]; then
 	# Sample: MONGO_PORT=tcp://172.17.0.20:27017
-	MONGODB_HOST=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\1;'`
-	MONGODB_PORT=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\2;'`
+	MONGODB_HOST=`echo $HYGIEIA_MONGODB_PORT_27017_TCP_PORT|sed 's;.*://\([^:]*\):\(.*\);\1;'`
+	MONGODB_PORT=`echo $HYGIEIA_MONGODB_PORT_27017_TCP_PORT|sed 's;.*://\([^:]*\):\(.*\);\2;'`
 else
 	env
 	echo "ERROR: MONGO_PORT not defined"
@@ -58,36 +58,36 @@ fi
 
 cat > $PROP_FILE <<EOF
 #Database Name
-dbname=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_DATABASE:-dashboard}
+dbname=dashboarddb
 
 #Database HostName - default is localhost
-dbhost=${MONGODB_HOST:-10.0.1.1}
+dbhost=hygieia-mongodb
 
 #Database Port - default is 27017
-dbport=${MONGODB_PORT:-27017}
+dbport=27017
 
 #Database Username - default is blank
-dbusername=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_USERNAME:-db}
+dbusername=dashboarduser
 
 #Database Password - default is blank
-dbpassword=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_PASSWORD:-dbpass}
+dbpassword=dbpassword
 
 #Collector schedule (required)
-jenkins.cron=${JENKINS_CRON:-0 0/5 * * * *}
+jenkins.cron=0 0/5 * * * *
 
 #The page size
-jenkins.pageSize=${JENKINS_PAGE_SIZE:-1000}
+jenkins.pageSize=1000
 
 # The folder depth - default is 10
-jenkins.folderDepth=${JENKINS_FOLDER_DEPTH:-10}
+jenkins.folderDepth=10
 
 #Jenkins server (required) - Can provide multiple
-#jenkins.servers[0]=http://jenkins.company.com
-#jenkins.niceNames[0]=[YourJenkins]
-#jenkins.environments[0]=[DEV,QA,INT,PERF,PROD]
+#jenkins.servers[0]=https://jenkins-dashboard.127.0.0.1.nip.io
+#jenkins.niceNames[0]=Jenkins
+#jenkins.environments[0]=DEV
 #Another option: If using same username/password Jenkins auth - set username/apiKey to use HTTP Basic Auth (blank=no auth)
-#jenkins.usernames[0]=user
-#jenkins.apiKeys[0]=12345
+#jenkins.usernames[0]=developer
+#jenkins.apiKeys[0]=1a12dfa4-7fc5-47a7-aa17-cc56572a41c7
 
 EOF
 
