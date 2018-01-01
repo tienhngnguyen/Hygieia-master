@@ -6,13 +6,13 @@ items:
   kind: BuildConfig
   metadata:
     annotations:
-      pipeline.alpha.openshift.io/uses: '[{"name": "cart", "namespace": "", "kind": "DeploymentConfig"}]'
-    name: cart-service-pipeline
+      pipeline.alpha.openshift.io/uses: '[{"name": "hygieia-api", "namespace": "", "kind": "DeploymentConfig"}]'
+    name: hygieia-pipeline
   spec:
     source:
       git:
-        ref: pipeline
-        uri: https://github.com/tienhngnguyen/cart-service.git
+        ref: master
+        uri:https://github.com/tienhngnguyen/Hygieia-master.git
       type: Git
     strategy:
       type: JenkinsPipeline
