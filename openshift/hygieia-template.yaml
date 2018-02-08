@@ -586,7 +586,7 @@ objects:
   spec:
     source:
       git:
-        uri: https://github.com/tienhngnguyen/jenkins-blueocean
+        uri: https://github.com/tienhngnguyen/jenkins-blueocean.git
       type: Git
     strategy:                     
       sourceStrategy:
