@@ -82,11 +82,12 @@ jenkins.pageSize=1000
 jenkins.folderDepth=10
 
 #Jenkins server (required) - Can provide multiple
-#jenkins.servers[0]=https://jenkins-dashboard.127.0.0.1.nip.io
-#jenkins.niceNames[0]=Jenkins
-#jenkins.environments[0]=DEV
+jenkins.servers[0]=https://jenkins-dashboard.127.0.0.1.nip.io/
+jenkins.niceNames[0]=Jenkins
+jenkins.environments[0]=DEV
 #Another option: If using same username/password Jenkins auth - set username/apiKey to use HTTP Basic Auth (blank=no auth)
-#jenkins.usernames[0]=developer
+jenkins.usernames[0]=admin
+jenkins.password[0]=password
 #jenkins.apiKeys[0]=1a12dfa4-7fc5-47a7-aa17-cc56572a41c7
 
 EOF

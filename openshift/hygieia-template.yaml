@@ -946,7 +946,7 @@ parameters:
   displayName: Enable OAuth in Jenkins
   description: Whether to enable OAuth OpenShift integration. If false, the static
     account 'admin' will be initialized with the password 'password'.
-  value: 'true'
+  value: 'false'
 - name: MEMORY_LIMIT
   displayName: Memory Limit
   description: Maximum amount of memory the container can use.
