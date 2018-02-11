@@ -652,7 +652,6 @@ objects:
         labels:
           name: "${JENKINS_SERVICE_NAME}"
       spec:
-        serviceAccountName: "${JENKINS_SERVICE_NAME}"
         containers:
         - name: jenkins
           image: " "
@@ -790,6 +789,7 @@ objects:
     labels:
       app: ${APPLICATION_NAME}-jenkins
   spec:
+    serviceAccountName: "${JENKINS_SERVICE_NAME}"
     replicas: 1
     selector:
       deploymentconfig: ${APPLICATION_NAME}-jenkins
@@ -946,7 +946,7 @@ parameters:
   displayName: Enable OAuth in Jenkins
   description: Whether to enable OAuth OpenShift integration. If false, the static
     account 'admin' will be initialized with the password 'password'.
-  value: 'true'
+  value: 'false'
 - name: MEMORY_LIMIT
   displayName: Memory Limit
   description: Maximum amount of memory the container can use.
