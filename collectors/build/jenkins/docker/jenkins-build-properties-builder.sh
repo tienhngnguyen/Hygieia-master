@@ -86,8 +86,8 @@ jenkins.servers[0]=http://172.30.51.151:80
 jenkins.niceNames[0]=Jenkins
 jenkins.environments[0]=DEV
 #Another option: If using same username/password Jenkins auth - set username/apiKey to use HTTP Basic Auth (blank=no auth)
-jenkins.usernames[0]=admin
-jenkins.password[0]=password
+#jenkins.usernames[0]=admin
+#jenkins.password[0]=password
 #jenkins.apiKeys[0]=1a12dfa4-7fc5-47a7-aa17-cc56572a41c7
 
 EOF
