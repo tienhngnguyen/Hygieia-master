@@ -31,20 +31,20 @@ echo "MONGODB_PORT: $MONGODB_PORT"
 
 cat > $PROP_FILE <<EOF
 #Database Name
-dbname=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_DATABASE:-dashboard}
+dbname=dashboarddb
 
 #Database HostName - default is localhost
-dbhost=${MONGODB_HOST:-10.0.1.1}
+dbhost=hygieia-mongodb
 
 #Database Port - default is 27017
-dbport=${MONGODB_PORT:-27017}
+dbport=27017
 
 
 #Database Username - default is blank
-dbusername=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_USERNAME:-db}
+dbusername=dashboarduser
 
 #Database Password - default is blank
-dbpassword=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_PASSWORD:-dbpass}
+dbpassword=dbpassword
 
 #Collector schedule (required)
 feature.cron=${JIRA_CRON:-0 * * * * *}
@@ -65,8 +65,8 @@ feature.teamQuery=teaminfo
 feature.trendingQuery=trendinginfo
 
 #Jira Connection Details
-feature.jiraProxyUrl=${JIRA_PROXY_URL}
-feature.jiraProxyPort=${JIRA_PROXY_PORT}
+#feature.jiraProxyUrl=${JIRA_PROXY_URL}
+#feature.jiraProxyPort=${JIRA_PROXY_PORT}
 
 # Trending Query:  Number of days in a sprint (not-required)
 feature.sprintDays=${JIRA_SPRINT_DAYS:-60}
@@ -81,19 +81,25 @@ feature.scheduledPriorMin=${JIRA_SCHEDULED_PRIOR_MIN:-2}
 feature.deltaCollectorItemStartDate=${JIRA_DELTA_COLLECTOR_ITEM_START_DATE:-2008-01-01T00:00:00.000000}
 
 #Jira Connection Details
-feature.jiraBaseUrl=${JIRA_BASE_URL:-https://jira.atlassian.com}
-feature.jiraQueryEndpoint=${JIRA_QUERY_ENDPOINT:-rest/api/2/}
+#feature.jiraBaseUrl=${JIRA_BASE_URL:-https://jira.atlassian.com}
+feature.jiraBaseUrl=https://constellation.soprasteria.com
+feature.jiraQueryEndpoint=rest/api/2/
+#feature.jiraQueryEndpoint=${JIRA_QUERY_ENDPOINT:-rest/api/2/}
 
 #64-bit encoded credentials with the pattern username:password 
 #on a mac you con create them with : echo "username:password" | base64
 #reference:  https://www.base64decode.org/ 
-feature.jiraCredentials=${JIRA_CREDENTIALS}
+feature.jiraCredentials=dG5ndXllbjpQbGFzZDMxMiEK
 
 #OAuth2.0 token credentials (currently not supported in this version)
-feature.jiraOauthAuthtoken=${JIRA_OAUTH_AUTH_TOKEN:-sdfghjkl==}
-feature.jiraOauthRefreshtoken=${JIRA_OAUTH_REFRESH_TOKEN:-sdfagheh==}
-feature.jiraOauthRedirecturi=${JIRA_OAUTH_REDIRECT_URL:-uri.this.is.test:uri}
-feature.jiraOauthExpiretime=${JIRA_OAUTH_EXPIRE_TIME:-234567890987}
+#feature.jiraOauthAuthtoken=${JIRA_OAUTH_AUTH_TOKEN:-sdfghjkl==}
+#feature.jiraOauthRefreshtoken=${JIRA_OAUTH_REFRESH_TOKEN:-sdfagheh==}
+#feature.jiraOauthRedirecturi=${JIRA_OAUTH_REDIRECT_URL:-uri.this.is.test:uri}
+#feature.jiraOauthExpiretime=${JIRA_OAUTH_EXPIRE_TIME:-234567890987}
+feature.jiraOauthAuthtoken=
+feature.jiraOauthRefreshtoken=
+feature.jiraOauthRedirecturi=
+feature.jiraOauthExpiretime=
 
 #Start dates from which to begin collector data, if no other data is present - usually, a month back is appropriate (required)
 feature.deltaStartDate=${JIRA_DELTA_START_DATE:-2015-03-01T00:00:00.000000}
@@ -107,7 +113,8 @@ feature.masterStartDate=${JIRA_MASTER_START_DATE:-2008-01-01T00:00:00.000000}
 # instance.  Note:  You can retrieve your instance's IssueType Name
 # listings via the following URI:  https://[your-jira-domain-name]/rest/api/2/issuetype/
 # Multiple comma-separated values can be specified.
-feature.jiraIssueTypeNames=${JIRA_ISSUE_TYPE_NAMES:-Story}
+#feature.jiraIssueTypeNames=${JIRA_ISSUE_TYPE_NAMES:-Story}
+feature.jiraIssueTypeNames=Story
 
 # In Jira, your instance will have its own custom field created for "sprint" or "timebox" details,
 # which includes a list of information.  This field allows you to specify that data field for your
