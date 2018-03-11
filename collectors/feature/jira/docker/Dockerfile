@@ -7,8 +7,8 @@ RUN \
 
   mkdir  /hygieia
 
-COPY *.jar /hygieia/
-COPY jira-properties-builder.sh /hygieia/
+COPY /docker/*.jar /hygieia/
+COPY /docker/jira-properties-builder.sh /hygieia/
 
 WORKDIR /hygieia/
 

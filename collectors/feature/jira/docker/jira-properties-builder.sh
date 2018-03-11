@@ -67,6 +67,8 @@ feature.trendingQuery=trendinginfo
 #Jira Connection Details
 #feature.jiraProxyUrl=${JIRA_PROXY_URL}
 #feature.jiraProxyPort=${JIRA_PROXY_PORT}
+feature.jiraProxyUrl=
+feature.jiraProxyPort=
 
 # Trending Query:  Number of days in a sprint (not-required)
 feature.sprintDays=${JIRA_SPRINT_DAYS:-60}
