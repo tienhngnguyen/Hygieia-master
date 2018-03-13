@@ -85,7 +85,7 @@ feature.deltaCollectorItemStartDate=${JIRA_DELTA_COLLECTOR_ITEM_START_DATE:-2008
 
 #Jira Connection Details
 #feature.jiraBaseUrl=${JIRA_BASE_URL:-https://jira.atlassian.com}
-feature.jiraBaseUrl=https://constellation.soprasteria.com
+feature.jiraBaseUrl=https://constellation.soprasteria.com/jira1/
 feature.jiraQueryEndpoint=rest/api/2/
 #feature.jiraQueryEndpoint=${JIRA_QUERY_ENDPOINT:-rest/api/2/}
 
