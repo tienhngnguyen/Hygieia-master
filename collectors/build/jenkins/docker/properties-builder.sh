@@ -13,9 +13,9 @@ then
         #for testing locally
         PROP_FILE=application.properties
 else 
-	PROP_FILE=config/hygieia-jenkins-build-collector.properties
+	PROP_FILE=hygieia-jenkins-build-collector.properties
 fi
-  
+  # if [ "$MONGO_PORT" != "" ]; then
 if [ "$HYGIEIA_MONGODB_PORT_27017_TCP_PORT" != "" ]; then
 	# Sample: MONGO_PORT=tcp://172.17.0.20:27017
 	MONGODB_HOST=`echo $HYGIEIA_MONGODB_PORT_27017_TCP_PORT|sed 's;.*://\([^:]*\):\(.*\);\1;'`
@@ -73,13 +73,13 @@ dbusername=dashboarduser
 dbpassword=dbpassword
 
 #Collector schedule (required)
-jenkins.cron=${JENKINS_CRON:-0 0/5 * * * *}
+jenkins.cron=0 0/5 * * * *
 
 #The page size
-jenkins.pageSize=${JENKINS_PAGE_SIZE:-1000}
+jenkins.pageSize=1000
 
 # The folder depth - default is 10
-jenkins.folderDepth=${JENKINS_FOLDER_DEPTH:-10}
+jenkins.folderDepth=10
 
 #Jenkins server (required) - Can provide multiple
 jenkins.servers[0]=http://172.30.51.151:80
@@ -88,6 +88,9 @@ jenkins.environments[0]=DEV
 #Another option: If using same username/password Jenkins auth - set username/apiKey to use HTTP Basic Auth (blank=no auth)
 jenkins.usernames[0]=admin
 jenkins.apiKeys[0]=523f9f7aa4a10a4ae6efbb547e0810bb
+#jenkins.usernames[0]=admin
+#jenkins.password[0]=password
+#jenkins.apiKeys[0]=1a12dfa4-7fc5-47a7-aa17-cc56572a41c7
 
 EOF
 
@@ -124,7 +127,7 @@ done
 
 cat >> $PROP_FILE <<EOF
 #Determines if build console log is collected - defaults to false
-jenkins.saveLog=${JENKINS_SAVE_LOG:-true}
+#jenkins.saveLog=${JENKINS_SAVE_LOG:-true}
 
 #map the entry localhost so URLS in jenkins resolve properly
 # Docker NATs the real host localhost to 10.0.2.2 when running in docker
