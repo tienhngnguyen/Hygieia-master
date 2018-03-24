@@ -127,7 +127,7 @@ done
 
 cat >> $PROP_FILE <<EOF
 #Determines if build console log is collected - defaults to false
-jenkins.saveLog=${JENKINS_SAVE_LOG:-true}
+#jenkins.saveLog=${JENKINS_SAVE_LOG:-true}
 
 #map the entry localhost so URLS in jenkins resolve properly
 # Docker NATs the real host localhost to 10.0.2.2 when running in docker
