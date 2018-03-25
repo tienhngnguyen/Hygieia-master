@@ -83,7 +83,7 @@ jenkins.folderDepth=10
 
 #Jenkins server (required) - Can provide multiple
 #jenkins.servers[0]=http://172.30.51.151:80
-jenkins.servers[0]=http://admin:523f9f7aa4a10a4ae6efbb547e0810bb@172.30.51.151:80
+jenkins.servers[0]=http://admin:2ac1cfa8ce496c10660292eb9d5c2c67@172.30.51.151:80
 jenkins.niceNames[0]=Jenkins
 jenkins.environments[0]=DEV
 #Another option: If using same username/password Jenkins auth - set username/apiKey to use HTTP Basic Auth (blank=no auth)
