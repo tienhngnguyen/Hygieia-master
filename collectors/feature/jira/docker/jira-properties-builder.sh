@@ -92,7 +92,7 @@ feature.jiraQueryEndpoint=rest/api/2/
 #64-bit encoded credentials with the pattern username:password 
 #on a mac you con create them with : echo "username:password" | base64
 #reference:  https://www.base64decode.org/ 
-feature.jiraCredentials=dG5ndXllbjpQbGFzZDMxMiEK
+feature.jiraCredentials=dG5ndXllbjpQbGFzZDMxMiE=
 
 #OAuth2.0 token credentials (currently not supported in this version)
 #feature.jiraOauthAuthtoken=${JIRA_OAUTH_AUTH_TOKEN:-sdfghjkl==}
