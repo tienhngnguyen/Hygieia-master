@@ -6,8 +6,8 @@ MAINTAINER Hygieia@capitalone.com
 RUN \
   mkdir /hygieia
 
-COPY *.jar /hygieia/
-COPY bitbucket-properties-builder.sh /hygieia/
+COPY /docker/*.jar /hygieia/
+COPY /docker/bitbucket-properties-builder.sh /hygieia/
 
 WORKDIR /hygieia
 

@@ -16,10 +16,12 @@ else
 	PROP_FILE=hygieia-bitbucket-scm-collector.properties
 fi
   
-if [ "$MONGO_PORT" != "" ]; then
+# if [ "$MONGO_PORT" != "" ]; then
+echo "Using Port: $HYGIEIA_MONGODB_PORT_27017_TCP_PORT"
+if [ "$HYGIEIA_MONGODB_PORT_27017_TCP_PORT" != "" ]; then
 	# Sample: MONGO_PORT=tcp://172.17.0.20:27017
-	MONGODB_HOST=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\1;'`
-	MONGODB_PORT=`echo $MONGO_PORT|sed 's;.*://\([^:]*\):\(.*\);\2;'`
+	MONGODB_HOST=`echo $HYGIEIA_MONGODB_PORT_27017_TCP_PORT|sed 's;.*://\([^:]*\):\(.*\);\1;'`
+	MONGODB_PORT=`echo $HYGIEIA_MONGODB_PORT_27017_TCP_PORT|sed 's;.*://\([^:]*\):\(.*\);\2;'`
 else
 	env
 	echo "ERROR: MONGO_PORT not defined"
@@ -32,25 +34,26 @@ echo "MONGODB_PORT: $MONGODB_PORT"
 
 cat > $PROP_FILE <<EOF
 #Database Name
-dbname=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_DATABASE:-dashboard}
+dbname=dashboarddb
 
 #Database HostName - default is localhost
-dbhost=${MONGODB_HOST:-10.0.1.1}
+dbhost=hygieia-mongodb
 
 #Database Port - default is 27017
-dbport=${MONGODB_PORT:-27017}
+dbport=27017
 
 #Database Username - default is blank
-dbusername=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_USERNAME:-db}
+dbusername=dashboarduser
 
 #Database Password - default is blank
-dbpassword=${HYGIEIA_API_ENV_SPRING_DATA_MONGODB_PASSWORD:-dbpass}
+dbpassword=dbpassword
 
 #Collector schedule (required)
 git.cron=${BITBUCKET_CRON:-0 0/5 * * * *}
 
 #mandatory
-git.host=${BITBUCKET_HOST:-mybitbucketrepo.com/}
+#git.host=${BITBUCKET_HOST:-mybitbucketrepo.com/}
+git.host=bitbucket-server-dashboard.127.0.0.1.nip.io
 git.api=${BITBUCKET_API:-/rest/api/1.0/}
 
 #Maximum number of days to go back in time when fetching commits. Only applicable to Bitbucket Cloud.
